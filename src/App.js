@@ -27,10 +27,8 @@ class BooksApp extends Component {
         .search(query.trim(), 20)
        .then((allSearchResults) => {
           if (allSearchResults && allSearchResults.length) {
-    
-            this.setState({ searchResults: allSearchResults })
-          } else {
-          
+                this.setState({ searchResults: allSearchResults})
+             } else {          
             this.setState({ searchResults: [] })
           }
         })
