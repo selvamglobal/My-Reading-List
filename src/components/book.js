@@ -28,10 +28,7 @@ class Book extends Component {
               {book.authors && (
                 <div className="book-authors">{book.authors.join(', ')}</div>
               )}
-              {book.averageRating && (
-                <div className="book-rating">Rating:   {book.averageRating}</div>
-              )}
-            </div>
+                         </div>
           </li>
         ))}
       </ol>
