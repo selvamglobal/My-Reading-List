@@ -8,7 +8,7 @@ import './App.css'
 import * as BooksAPI from './BooksAPI'
 
 class BooksApp extends Component {
-  
+
   state = {
     booksOnShelf: [],
     searchResults: [],
@@ -25,10 +25,22 @@ class BooksApp extends Component {
     if (query !== ' ') {
       BooksAPI
         .search(query.trim(), 20)
-       .then((allSearchResults) => {
+        .then((allSearchResults) => {
           if (allSearchResults && allSearchResults.length) {
-                this.setState({ searchResults: allSearchResults})
-             } else {          
+            allSearchResults.map(
+              book => (this.state.booksOnShelf.filter(
+                (b) => b.id === book.id
+              ).map(
+                b => book.shelf = b.shelf
+                ))
+            )
+            for (var i = 0; i < allSearchResults.length; i++) {
+              if (!allSearchResults[i].shelf) {
+                allSearchResults[i].shelf = 'none';
+              }
+            }
+            this.setState({ searchResults: allSearchResults })
+          } else {
             this.setState({ searchResults: [] })
           }
         })
@@ -56,7 +68,7 @@ class BooksApp extends Component {
               let newShelfState = state.booksOnShelf.concat(bookRetrieved);
               return { booksOnShelf: newShelfState }
             })
-          
+
           })
       })
   }

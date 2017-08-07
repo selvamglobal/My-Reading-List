@@ -24,6 +24,7 @@ class SearchBar extends Component {
           <Book
             onChangeShelf={onChangeShelf}
             booksToShow={searchResults}
+           
           />
         </div>
       </div>
