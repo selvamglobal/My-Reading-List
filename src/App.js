@@ -59,8 +59,8 @@ class BooksApp extends Component {
       })
   }
 
-  handleAddFromSearch = (bookToAdd, shelfSelected) => {    
-          this.setState(state => {
+  handleAddFromSearch = (bookToAdd, shelfSelected) => {
+    this.setState(state => {
       bookToAdd.shelf = shelfSelected
       return state
     })
