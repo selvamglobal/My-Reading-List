@@ -69,6 +69,7 @@ class BooksApp extends Component {
         BooksAPI.get(bookToAdd.id)
           .then((bookRetrieved) => {
             this.setState((state) => {
+              let newShelfState = state.booksOnShelf.filter(b=>(b.id !==bookToAdd.id)).concat(bookRetrieved);
               let newShelfState = state.booksOnShelf.concat(bookRetrieved);
               return { booksOnShelf: newShelfState }
             })
