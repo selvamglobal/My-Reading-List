@@ -13,8 +13,6 @@ class BooksApp extends Component {
     booksOnShelf: [],
     searchResults: [],
   }
-
-
   componentDidMount() {
     BooksAPI.getAll().then((allReturnedBooks) => {
       this.setState({ booksOnShelf: allReturnedBooks })
@@ -69,8 +67,7 @@ class BooksApp extends Component {
         BooksAPI.get(bookToAdd.id)
           .then((bookRetrieved) => {
             this.setState((state) => {
-              let newShelfState = state.booksOnShelf.filter(b=>(b.id !==bookToAdd.id)).concat(bookRetrieved);
-              let newShelfState = state.booksOnShelf.concat(bookRetrieved);
+              let newShelfState = state.booksOnShelf.filter(b => (b.id !== bookToAdd.id)).concat(bookRetrieved);
               return { booksOnShelf: newShelfState }
             })
 
@@ -80,29 +77,19 @@ class BooksApp extends Component {
 
   render() {
     const { booksOnShelf, searchResults } = this.state
+    const shelves =
+      [{ id: 'currentlyReading', title: 'Currently Reading', books: booksOnShelf.filter((book) => book.shelf === "currentlyReading") },
+      { id: 'wantToRead', title: 'Want to Read', books: booksOnShelf.filter((book) => book.shelf === "wantToRead") },
+      { id: 'read', title: 'Read', books: booksOnShelf.filter((book) => book.shelf === "read") }]
 
     return (
       <div className="app">
         <Route exact path="/" render={() => (
-          <div className="list-books">           <Header />
-
-
+          <div className="list-books">           
+            <Header />
             <div className="list-books-content">
-              <BookShelf
-                title="Currently Reading"
-                booksOnShelf={booksOnShelf.filter((book) => book.shelf === "currentlyReading")}
-                onChangeShelf={this.handleChange}
-              />
-              <BookShelf
-                title="Want to Read"
-                booksOnShelf={booksOnShelf.filter((book) => book.shelf === "wantToRead")}
-                onChangeShelf={this.handleChange}
-              />
-              <BookShelf
-                title="Read"
-                booksOnShelf={booksOnShelf.filter((book => book.shelf === "read"))}
-                onChangeShelf={this.handleChange}
-              />
+              {shelves.map(shelff => <BookShelf onChangeShelf={this.handleChange} id={shelff.id} booksOnShelf={shelff.books} title={shelff.title} />
+              )}
             </div>
             <SearchIcon />
           </div>
